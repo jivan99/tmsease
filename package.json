@@ -35,6 +35,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.13",
+    "webext-bridge": "^6.0.1",
     "webextension-polyfill": "^0.12.0"
   }
 }
