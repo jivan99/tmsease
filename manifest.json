@@ -1,0 +1,10 @@
+{
+  "name": "TMSEase",
+  "description": "Easily login to your TMS Accounts.",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "permissions": ["tabs", "activeTab", "webNavigation"]
+}
