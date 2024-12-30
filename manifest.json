@@ -6,5 +6,11 @@
   "background": {
     "service_worker": "src/background.js"
   },
-  "permissions": ["tabs", "activeTab", "webNavigation"]
+  "permissions": ["tabs", "activeTab", "webNavigation"],
+  "content_scripts": [
+    {
+      "js": ["src/content/main.js"],
+      "matches": ["https://*.nepsetms.com.np/*"]
+    }
+  ]
 }
