@@ -15,11 +15,16 @@ export default defineConfig({
   plugins: [
     Vue(),
     AutoImport({
-      imports: ["vue"]
+      imports: [
+        "vue",
+        {
+          "webextension-polyfill": [["default", "browser"]]
+        }
+      ]
     }),
     crx({ manifest })
   ],
   optimizeDeps: {
-    include: ["vue"]
+    include: ["vue", "webextension-polyfill"]
   }
 });

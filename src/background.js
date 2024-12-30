@@ -1,3 +1,3 @@
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("Hello from TMSEase.");
+browser.runtime.onInstalled.addListener(() => {
+  console.log("Howdy! from background script.");
 });
