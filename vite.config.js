@@ -2,6 +2,7 @@ import tailwind from "tailwindcss";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 import autoprefixer from "autoprefixer";
+import Icons from "unplugin-icons/vite";
 import { crx } from "@crxjs/vite-plugin";
 import { fileURLToPath, URL } from "node:url";
 import AutoImport from "unplugin-auto-import/vite";
@@ -29,6 +30,7 @@ export default defineConfig({
         }
       ]
     }),
+    Icons({ compiler: "vue3", autoInstall: true }),
     crx({ manifest })
   ],
   optimizeDeps: {
