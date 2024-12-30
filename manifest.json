@@ -10,7 +10,8 @@
   "content_scripts": [
     {
       "js": ["src/content/main.js"],
-      "matches": ["https://*.nepsetms.com.np/*"]
+      "matches": ["https://*.nepsetms.com.np/*"],
+      "run_at": "document_idle"
     }
   ]
 }
