@@ -1,0 +1,24 @@
+{
+  "name": "tmsease",
+  "displayName": "TMSEase",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A browser extension to streamline daunting tasks within TMS.",
+  "packageManager": "pnpm@9.15.1",
+  "type": "module",
+  "engines": {
+    "node": ">=22.11.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "Jivan Katwal (https://www.linkedin.com/in/jivan99/)",
+  "license": "ISC",
+  "devDependencies": {
+    "@crxjs/vite-plugin": "2.0.0-beta.28",
+    "prettier": "^3.4.2",
+    "vite": "^6.0.6"
+  }
+}
