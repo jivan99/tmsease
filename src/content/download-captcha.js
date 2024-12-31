@@ -1,8 +1,3 @@
-const regex = /\d+/g;
-const match = location.host.match(regex);
-const broker = match[0];
-const filename = `captcha${broker}.png`;
-
 const captchaReloadBtn = document.querySelector(
   'a[aria-label="Reload captcha"]'
 );
@@ -13,7 +8,7 @@ const getNewImageUrl = (oldImageUrl) => {
   return new Promise((resolve) => {
     const interval = setInterval(() => {
       const imageEl = document.querySelector(imageSelector);
-      if (imageEl.src !== oldImageUrl) {
+      if (imageEl && imageEl.src !== oldImageUrl) {
         clearInterval(interval);
         resolve(imageEl.src);
       }
@@ -26,6 +21,14 @@ export const downloadCaptcha = async () => {
   imageUrl = await getNewImageUrl(imageUrl);
   const link = document.createElement("a");
   link.href = imageUrl;
+
+  const regex = /\d+/g;
+  const match = location.host.match(regex);
+  const broker = match[0];
+  const filename = `captcha${broker}.png`;
+
   link.download = filename;
   link.click();
+
+  return filename;
 };
