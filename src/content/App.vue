@@ -2,6 +2,7 @@
 import users from "@/../users.json";
 import profile from "@/assets/profile.png";
 const avatar = browser.runtime.getURL(profile);
+import { onMessage } from "webext-bridge/content-script";
 
 import CheckIcon from "~icons/radix-icons/check";
 import CaretSortIcon from "~icons/radix-icons/caret-sort";
@@ -25,14 +26,62 @@ const container = document.getElementById("tms-ease");
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { downloadCaptcha } from "./download-captcha";
 
 const open = ref(true);
+const filename = ref("");
 const selectedUser = ref(null);
 
-function onUserSelection(user) {
+async function onUserSelection(user) {
   selectedUser.value = user;
   open.value = false;
+
+  filename.value = await downloadCaptcha();
 }
+
+onMessage("DOWNLOAD_COMPLETE", async () => {
+  try {
+    const res = await fetch(`http://localhost:8080/captcha`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ filename: filename.value })
+    });
+    const captchaText = await res.text();
+
+    const usernameEl = document.querySelector(
+      'div.form-group input[placeholder="Client Code/ User Name"]'
+    );
+    const passwordEl = document.getElementById("password-field");
+    const captchaEl = document.getElementById("captchaEnter");
+
+    usernameEl.value = selectedUser.value.username;
+    passwordEl.value = selectedUser.value.password;
+    captchaEl.value = captchaText;
+
+    const inputEvent = new Event("input", { bubbles: true, cancelable: false });
+    usernameEl.dispatchEvent(inputEvent);
+    passwordEl.dispatchEvent(inputEvent);
+    captchaEl.dispatchEvent(inputEvent);
+
+    const loginBtn = document.querySelector('input.btn[value="Login"]');
+    loginBtn.click();
+
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(), 1000);
+    });
+
+    const toastErrorEl = document.querySelector("#toasty div.close-button");
+    if (toastErrorEl) {
+      toastErrorEl.click();
+      filename.value = await downloadCaptcha();
+    }
+  } catch (error) {
+    console.log({ error });
+  }
+});
 </script>
 
 <template>
@@ -103,7 +152,7 @@ function onUserSelection(user) {
 </template>
 
 <style scoped>
-  button:focus {
-    outline: 1px dotted !important;
-  }
+button:focus {
+  outline: 1px dotted !important;
+}
 </style>
