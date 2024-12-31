@@ -45,10 +45,7 @@ function onUserSelection(user) {
           aria-expanded="open"
           aria-label="Select a user"
           :class="
-            cn(
-              'w-[250px] justify-between font-normal !focus:outline-dotted',
-              $attrs.class ?? ''
-            )
+            cn('w-[250px] justify-between font-normal', $attrs.class ?? '')
           "
         >
           <template v-if="selectedUser">
@@ -104,3 +101,9 @@ function onUserSelection(user) {
     </Popover>
   </div>
 </template>
+
+<style scoped>
+  button:focus {
+    outline: 1px dotted !important;
+  }
+</style>
