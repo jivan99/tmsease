@@ -23,6 +23,7 @@ root.classList.add(
 document.body.appendChild(root);
 
 onMessage("MOUNT_APP", async () => {
+  root.classList.remove("hidden");
   app = createMyApp();
   app.mount(root);
 });
@@ -32,6 +33,8 @@ onMessage("UNMOUNT_APP", async () => {
     app.unmount();
     app = null;
   }
+
+  root.classList.add("hidden");
 });
 
 onMessage("SIGNOUT", async () => {

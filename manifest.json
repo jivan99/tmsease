@@ -6,7 +6,8 @@
   "background": {
     "service_worker": "src/background.js"
   },
-  "permissions": ["tabs", "activeTab"],
+  "permissions": ["tabs", "activeTab", "downloads"],
+  "host_permissions": ["*://*/*"],
   "content_scripts": [
     {
       "js": ["src/content/main.js"],

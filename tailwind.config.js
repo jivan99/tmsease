@@ -23,7 +23,7 @@ module.exports = {
     },
     extend: {
       zIndex: {
-        infinity: "5000"
+        infinity: "9999999"
       },
       colors: {
         border: "hsl(var(--border))",
