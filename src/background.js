@@ -25,3 +25,27 @@ browser.commands.onCommand.addListener(async (command) => {
     }
   }
 });
+
+browser.downloads.onChanged.addListener(async (delta) => {
+  try {
+    if (delta.state && delta.state.current === "complete") {
+      const [download] = await browser.downloads.search({ id: delta.id });
+      if (download?.filename?.includes("captcha")) {
+        const tabs = await browser.tabs.query({
+          active: true,
+          currentWindow: true
+        });
+
+        if (tabs.length) {
+          await sendMessage(
+            "DOWNLOAD_COMPLETE",
+            {},
+            `content-script@${tabs[0].id}`
+          );
+        }
+      }
+    }
+  } catch (err) {
+    console.log({ err });
+  }
+});
