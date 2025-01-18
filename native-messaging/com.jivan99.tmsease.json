@@ -1,0 +1,7 @@
+{
+  "name": "com.jivan99.tmsease",
+  "description": "My Application",
+  "path": "/home/jivan/Desktop/tmsease/native-messaging/main.py",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://gadclbokjoaiejiehmbdkgagkabbnmkc/"]
+}

@@ -1,5 +1,12 @@
 import { sendMessage } from "webext-bridge/background";
 
+(async () => {
+  const text = await browser.runtime.sendNativeMessage("com.jivan99.tmsease", {
+    message: "ping"
+  });
+  console.log({ text });
+})();
+
 browser.runtime.onInstalled.addListener(() => {
   console.log("Howdy! from background script.");
 });
