@@ -25,7 +25,9 @@ export const downloadCaptcha = async () => {
   const regex = /\d+/g;
   const match = location.host.match(regex);
   const broker = match[0];
-  const filename = `captcha${broker}.png`;
+
+  const splitImageUrl = imageUrl.split("/");
+  const filename = `captcha-${splitImageUrl[splitImageUrl.length - 1]}-${broker}.png`;
 
   link.download = filename;
   link.click();
